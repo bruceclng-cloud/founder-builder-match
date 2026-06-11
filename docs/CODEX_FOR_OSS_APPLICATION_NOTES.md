@@ -4,11 +4,11 @@
 
 This project is not ready for a strong Codex for Open Source application yet.
 
-The official OpenAI Codex manual says the Codex for OSS program is for maintainers of widely used open-source projects or nominations of maintainers stewarding important projects. A brand-new repository needs public activity, maintainers, users, or ecosystem relevance before it can make that case.
+The official OpenAI Codex for Open Source page says core maintainers or maintainers of widely used public projects should apply, and that projects outside the criteria can still apply if they play an important ecosystem role. A brand-new repository needs public activity, maintainers, users, or ecosystem relevance before it can make that case well.
 
 ## Official Program Summary
 
-From the official Codex manual, the program is for maintainers of important open-source projects and may provide API credits, ChatGPT Pro with Codex, and selective access to Codex Security.
+From the official Codex for Open Source page, the program can include six months of ChatGPT Pro with Codex, conditional Codex Security access, and API credits through the Codex Open Source Fund for projects using Codex in OSS maintainer workflows.
 
 Application page:
 
