@@ -22,6 +22,7 @@ Build evidence first:
 - clear open-source license
 - useful README and project docs
 - initial prototype or working MVP
+- hosted demo
 - issue tracker with roadmap
 - public contributor guidance
 - early users or community testers
@@ -40,10 +41,11 @@ The strongest future story would be:
 
 1. Publish this repository publicly.
 2. Build and iterate the simple prototype.
-3. Run concierge validation with real founders and builders.
-4. Collect public feedback through GitHub issues.
-5. Recruit one or two contributors or pilot communities.
-6. Revisit the Codex for OSS application after there is usage or contributor activity.
+3. Publish the hosted demo.
+4. Run concierge validation with real founders and builders.
+5. Collect public feedback through GitHub issues.
+6. Recruit one or two contributors or pilot communities.
+7. Revisit the Codex for OSS application after there is usage or contributor activity.
 
 ## Draft Application Notes
 

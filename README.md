@@ -60,6 +60,14 @@ After a promising match, the platform supports a 7-day paid trial sprint.
 
 This repo includes a dependency-free static prototype:
 
+Hosted demo:
+
+```text
+https://bruceclng-cloud.github.io/founder-builder-match/
+```
+
+Run locally:
+
 ```bash
 npm test
 npm run serve
@@ -101,6 +109,9 @@ This project is intended to be public and contributor-friendly. The early open-s
 - [docs/PRODUCT_BRIEF.md](docs/PRODUCT_BRIEF.md): product concept and positioning
 - [docs/MVP_SPEC.md](docs/MVP_SPEC.md): initial app scope
 - [docs/MARKET_RESEARCH_PLAN.md](docs/MARKET_RESEARCH_PLAN.md): validation plan and dead-market checks
+- [docs/VALIDATION_SPRINT.md](docs/VALIDATION_SPRINT.md): 14-day validation sprint plan
+- [docs/INTERVIEW_GUIDE.md](docs/INTERVIEW_GUIDE.md): founder and builder interview scripts
+- [docs/CONCIERGE_MATCH_PLAYBOOK.md](docs/CONCIERGE_MATCH_PLAYBOOK.md): manual matching playbook
 - [docs/CODEX_FOR_OSS_APPLICATION_NOTES.md](docs/CODEX_FOR_OSS_APPLICATION_NOTES.md): notes for future Codex for Open Source readiness
 - [ROADMAP.md](ROADMAP.md): public project roadmap
 - [SECURITY.md](SECURITY.md): security policy and sensitive workflow notes

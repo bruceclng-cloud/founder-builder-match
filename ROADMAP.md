@@ -22,7 +22,7 @@ Status: in progress
 - Test pricing ranges and builder minimums
 - Collect feedback in public GitHub issues
 
-Status: planned
+Status: in progress
 
 ### Milestone 3: Functional Web App
 
