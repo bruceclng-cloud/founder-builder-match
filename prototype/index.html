@@ -1,0 +1,225 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Founder Builder Match Prototype</title>
+    <link rel="stylesheet" href="./styles.css">
+  </head>
+  <body>
+    <header class="topbar">
+      <div>
+        <p class="eyebrow">Open-source MVP prototype</p>
+        <h1>Founder Builder Match</h1>
+      </div>
+      <a class="repo-link" href="https://github.com/bruceclng-cloud/founder-builder-match">GitHub</a>
+    </header>
+
+    <main class="shell">
+      <section class="panel intro-panel" aria-labelledby="prototype-title">
+        <div>
+          <h2 id="prototype-title">Match serious founders with credible builders.</h2>
+          <p>
+            This prototype tests the core workflow: founder need, builder proof,
+            founder seriousness, fair trial pricing, and proof-of-work after a trial sprint.
+          </p>
+        </div>
+        <div class="metric-row" aria-label="Prototype status">
+          <div class="metric">
+            <strong id="match-count">0</strong>
+            <span>matches</span>
+          </div>
+          <div class="metric">
+            <strong id="trial-fee">$0</strong>
+            <span>trial stipend</span>
+          </div>
+          <div class="metric">
+            <strong id="platform-fee">$0</strong>
+            <span>platform fee</span>
+          </div>
+        </div>
+      </section>
+
+      <nav class="tabs" aria-label="Prototype workflow">
+        <button class="tab is-active" data-panel="founder">Founder</button>
+        <button class="tab" data-panel="builders">Builders</button>
+        <button class="tab" data-panel="matches">Matches</button>
+        <button class="tab" data-panel="trial">Trial sprint</button>
+        <button class="tab" data-panel="proof">Proof record</button>
+      </nav>
+
+      <section class="workspace">
+        <article class="view is-active" id="panel-founder">
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow">Step 1</p>
+              <h2>Founder need and seriousness</h2>
+            </div>
+            <button class="secondary-button" id="reset-founder" type="button">Reset sample</button>
+          </div>
+
+          <form class="form-grid" id="founder-form">
+            <label>
+              Founder name
+              <input name="name" value="Maya Chen">
+            </label>
+            <label>
+              Timezone
+              <input name="timezone" value="GMT+8">
+            </label>
+            <label class="span-2">
+              What are you building?
+              <textarea name="summary">A lightweight scheduling and payment tool for independent tutors in Hong Kong.</textarea>
+            </label>
+            <label>
+              Skill needed
+              <select name="neededSkill">
+                <option value="frontend">Frontend</option>
+                <option value="backend">Backend</option>
+                <option value="ai">AI prototype</option>
+                <option value="design">Product design</option>
+                <option value="fullstack" selected>Full-stack MVP</option>
+              </select>
+            </label>
+            <label>
+              Trial budget
+              <input name="budget" type="number" min="0" value="1200">
+            </label>
+            <label>
+              Project stage
+              <select name="stage">
+                <option>Idea only</option>
+                <option selected>Validated problem</option>
+                <option>Prototype exists</option>
+                <option>Users exist</option>
+              </select>
+            </label>
+            <label>
+              Market evidence
+              <select name="marketEvidence">
+                <option>No evidence yet</option>
+                <option selected>Customer conversations</option>
+                <option>Waitlist</option>
+                <option>Paying customers</option>
+              </select>
+            </label>
+            <label class="span-2">
+              7-day outcome
+              <textarea name="outcome">Ship a working booking flow with tutor availability, student request form, and admin review screen.</textarea>
+            </label>
+            <fieldset class="span-2 checks">
+              <legend>Founder readiness checks</legend>
+              <label><input name="hasBudget" type="checkbox" checked> Budget exists</label>
+              <label><input name="clearScope" type="checkbox" checked> Scope is specific</label>
+              <label><input name="hasTimeline" type="checkbox" checked> Timeline exists</label>
+              <label><input name="canGiveFeedback" type="checkbox" checked> Founder can give feedback during trial</label>
+            </fieldset>
+          </form>
+        </article>
+
+        <article class="view" id="panel-builders">
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow">Step 2</p>
+              <h2>Builder profiles and proof</h2>
+            </div>
+            <button class="primary-button" id="score-builders" type="button">Generate matches</button>
+          </div>
+
+          <div class="builder-grid" id="builder-grid"></div>
+        </article>
+
+        <article class="view" id="panel-matches">
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow">Step 3</p>
+              <h2>Recommended matches</h2>
+            </div>
+            <button class="primary-button" id="refresh-matches" type="button">Refresh scores</button>
+          </div>
+          <div class="empty-state" id="empty-matches">
+            Generate matches to see ranked builders and reasons.
+          </div>
+          <div class="match-list" id="match-list"></div>
+        </article>
+
+        <article class="view" id="panel-trial">
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow">Step 4</p>
+              <h2>7-day paid trial sprint</h2>
+            </div>
+            <button class="primary-button" id="build-trial" type="button">Build trial brief</button>
+          </div>
+
+          <div class="trial-layout">
+            <form class="form-grid" id="trial-form">
+              <label>
+                Trial type
+                <select name="trialType">
+                  <option value="prototype">Clickable prototype</option>
+                  <option value="feature" selected>Small feature build</option>
+                  <option value="architecture">Technical architecture</option>
+                  <option value="ai">AI proof-of-concept</option>
+                  <option value="audit">MVP/codebase audit</option>
+                </select>
+              </label>
+              <label>
+                Builder minimum
+                <input name="builderMinimum" type="number" min="0" value="900">
+              </label>
+              <label class="span-2">
+                Acceptance criteria
+                <textarea name="acceptance">Demo booking flow works with sample data. Screens are responsive. Handoff notes explain next technical steps.</textarea>
+              </label>
+              <label class="span-2">
+                Evidence required
+                <textarea name="evidence">GitHub branch, deployed demo link, Loom walkthrough, screenshots of mobile and desktop.</textarea>
+              </label>
+            </form>
+
+            <aside class="brief" id="trial-brief">
+              <h3>Trial brief preview</h3>
+              <p class="muted">Create a match first, then build a trial brief.</p>
+            </aside>
+          </div>
+        </article>
+
+        <article class="view" id="panel-proof">
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow">Step 5</p>
+              <h2>Builder proof-of-work record</h2>
+            </div>
+            <button class="primary-button" id="generate-proof" type="button">Generate proof record</button>
+          </div>
+
+          <form class="form-grid" id="proof-form">
+            <label>
+              Completion status
+              <select name="status">
+                <option selected>Milestones completed</option>
+                <option>Partial completion</option>
+                <option>Disputed</option>
+              </select>
+            </label>
+            <label>
+              Founder feedback
+              <input name="feedback" value="Strong execution and clear communication.">
+            </label>
+            <label class="span-2">
+              Submitted artifacts
+              <textarea name="artifacts">Demo URL, GitHub branch, Loom walkthrough, implementation notes.</textarea>
+            </label>
+          </form>
+
+          <section class="proof-record" id="proof-record">
+            <p class="muted">Generate a proof record after a trial brief exists.</p>
+          </section>
+        </article>
+      </section>
+    </main>
+
+    <script type="module" src="./app.js"></script>
+  </body>
+</html>

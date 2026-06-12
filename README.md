@@ -56,9 +56,33 @@ After a promising match, the platform supports a 7-day paid trial sprint.
 - Builders receive proof-of-work records even if the relationship does not continue
 - Equity and co-founder legal agreements are out of scope for the MVP
 
+## Prototype
+
+This repo includes a dependency-free static prototype:
+
+```bash
+npm test
+npm run serve
+```
+
+Then open:
+
+```text
+http://localhost:4173
+```
+
+The prototype demonstrates:
+
+- founder intake
+- builder proof profiles
+- visible match scoring
+- fair trial sprint pricing
+- trial brief generation
+- proof-of-work record generation
+
 ## Current Status
 
-This repository currently contains planning documents. The next milestone is a lightweight prototype for:
+This repository contains planning documents and a lightweight prototype for:
 
 1. founder onboarding
 2. builder onboarding
@@ -78,6 +102,8 @@ This project is intended to be public and contributor-friendly. The early open-s
 - [docs/MVP_SPEC.md](docs/MVP_SPEC.md): initial app scope
 - [docs/MARKET_RESEARCH_PLAN.md](docs/MARKET_RESEARCH_PLAN.md): validation plan and dead-market checks
 - [docs/CODEX_FOR_OSS_APPLICATION_NOTES.md](docs/CODEX_FOR_OSS_APPLICATION_NOTES.md): notes for future Codex for Open Source readiness
+- [ROADMAP.md](ROADMAP.md): public project roadmap
+- [SECURITY.md](SECURITY.md): security policy and sensitive workflow notes
 - [CONTRIBUTING.md](CONTRIBUTING.md): contributor guidance
 - [AGENTS.md](AGENTS.md): Codex guidance for this repo
 

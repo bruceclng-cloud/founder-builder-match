@@ -39,7 +39,7 @@ The strongest future story would be:
 ## Immediate Next Steps
 
 1. Publish this repository publicly.
-2. Build a simple prototype.
+2. Build and iterate the simple prototype.
 3. Run concierge validation with real founders and builders.
 4. Collect public feedback through GitHub issues.
 5. Recruit one or two contributors or pilot communities.
