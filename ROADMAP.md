@@ -11,8 +11,10 @@ Goal: prove the core workflow in public before building payments, escrow, or leg
 - Match scoring with visible reasons
 - Trial sprint brief preview
 - Builder proof-of-work record preview
+- Local draft persistence
+- JSON match packet export
 
-Status: in progress
+Status: complete
 
 ### Milestone 2: Validation Sprint
 

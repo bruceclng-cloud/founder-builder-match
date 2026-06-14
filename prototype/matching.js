@@ -99,6 +99,16 @@ function scoreMatch(founder, builder) {
   return { builder, score, reasons };
 }
 
+function getReadinessBreakdown(founder, builder) {
+  return {
+    skill: skillMatches(founder.neededSkill, builder.skills) ? 100 : 20,
+    price: priceCompatibility(founder.budget, builder.minimumRate),
+    proof: proofCompleteness(builder),
+    founder: founderSeriousness(founder),
+    timezone: timezoneCompatibility(founder.timezone, builder.timezone)
+  };
+}
+
 function recommendMatches(founder, builders) {
   return builders
     .map((builder) => scoreMatch(founder, builder))
@@ -131,6 +141,7 @@ export {
   PRICE_RANGES,
   calculateTrialEconomics,
   founderSeriousness,
+  getReadinessBreakdown,
   proofCompleteness,
   recommendMatches,
   scoreMatch,

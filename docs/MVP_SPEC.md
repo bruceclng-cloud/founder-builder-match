@@ -170,3 +170,19 @@ Build a clickable or functional prototype that can demonstrate:
 4. both sides create a trial sprint brief
 5. builder submits evidence
 6. builder receives proof-of-work record
+7. match packet can be exported for a concierge validation call
+
+## Prototype V0.2
+
+The current static prototype supports:
+
+- editable founder intake
+- editable builder profile creation
+- local browser storage for prototype data
+- match score breakdowns
+- trial sprint pricing preview
+- trial brief preview
+- proof-of-work record preview
+- JSON match packet export
+
+This is still not a production app. It is a validation tool for showing the workflow, collecting feedback, and manually running concierge matches.

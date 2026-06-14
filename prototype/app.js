@@ -1,7 +1,10 @@
 import {
   calculateTrialEconomics,
+  getReadinessBreakdown,
   recommendMatches
 } from "./matching.js";
+
+const STORAGE_KEY = "founder-builder-match-prototype";
 
 const sampleFounder = {
   name: "Maya Chen",
@@ -18,7 +21,7 @@ const sampleFounder = {
   canGiveFeedback: true
 };
 
-const builders = [
+const sampleBuilders = [
   {
     id: "leo",
     name: "Leo Wong",
@@ -51,15 +54,64 @@ const builders = [
   }
 ];
 
+let builders = [];
 let currentMatches = [];
 let selectedMatch = null;
 let currentTrial = null;
+let currentProofRecord = null;
 
 const $ = (selector) => document.querySelector(selector);
 const $$ = (selector) => Array.from(document.querySelectorAll(selector));
 
 function money(value) {
   return `$${Number(value || 0).toLocaleString()}`;
+}
+
+function splitList(value) {
+  return String(value || "")
+    .split(/\n|,/)
+    .map((item) => item.trim())
+    .filter(Boolean);
+}
+
+function slug(value) {
+  return String(value || "builder")
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/(^-|-$)/g, "");
+}
+
+function saveState() {
+  const state = {
+    founder: formToFounder(),
+    builders
+  };
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+  setSaveStatus("Saved locally");
+}
+
+function loadState() {
+  const stored = localStorage.getItem(STORAGE_KEY);
+  if (!stored) {
+    builders = structuredClone(sampleBuilders);
+    return sampleFounder;
+  }
+
+  try {
+    const parsed = JSON.parse(stored);
+    builders = Array.isArray(parsed.builders) && parsed.builders.length
+      ? parsed.builders
+      : structuredClone(sampleBuilders);
+    return parsed.founder || sampleFounder;
+  } catch {
+    builders = structuredClone(sampleBuilders);
+    return sampleFounder;
+  }
+}
+
+function setSaveStatus(text) {
+  const status = $("#save-status");
+  if (status) status.textContent = text;
 }
 
 function formToFounder() {
@@ -81,12 +133,41 @@ function formToFounder() {
   };
 }
 
+function fillFounderForm(founder) {
+  const form = $("#founder-form");
+  Object.entries(founder).forEach(([key, value]) => {
+    const field = form.elements[key];
+    if (!field) return;
+    if (field.type === "checkbox") field.checked = Boolean(value);
+    else field.value = value;
+  });
+}
+
+function formToBuilder() {
+  const form = $("#builder-form");
+  const data = new FormData(form);
+  const name = String(data.get("name") || "").trim();
+  return {
+    id: `${slug(name)}-${Date.now()}`,
+    name,
+    timezone: String(data.get("timezone") || "").trim(),
+    status: String(data.get("status") || "").trim(),
+    skills: splitList(data.get("skills")).map((skill) => skill.toLowerCase()),
+    minimumRate: Number(data.get("minimumRate")) || 0,
+    availability: String(data.get("availability") || "").trim(),
+    proofLinks: splitList(data.get("proofLinks"))
+  };
+}
+
 function renderBuilders() {
   $("#builder-grid").innerHTML = builders
     .map(
       (builder) => `
         <section class="person-card" data-builder-id="${builder.id}">
-          <h3>${builder.name}</h3>
+          <div class="card-title">
+            <h3>${builder.name}</h3>
+            <button class="text-button" data-remove-builder="${builder.id}" type="button">Remove</button>
+          </div>
           <p class="muted">${builder.status} · ${builder.timezone} · ${builder.availability}</p>
           <div class="tag-row">
             ${builder.skills.map((skill) => `<span class="tag">${skill}</span>`).join("")}
@@ -100,6 +181,16 @@ function renderBuilders() {
       `
     )
     .join("");
+
+  $$("[data-remove-builder]").forEach((button) => {
+    button.addEventListener("click", () => {
+      const id = button.dataset.removeBuilder;
+      builders = builders.filter((builder) => builder.id !== id);
+      renderBuilders();
+      renderMatches();
+      saveState();
+    });
+  });
 }
 
 function renderMatches() {
@@ -125,6 +216,7 @@ function renderMatches() {
             ${match.builder.skills.map((skill) => `<span class="tag">${skill}</span>`).join("")}
             <span class="tag warn">min ${money(match.builder.minimumRate)}</span>
           </div>
+          ${renderBreakdown(formToFounder(), match.builder)}
           <ul class="reason-list">
             ${match.reasons.map((reason) => `<li>${reason}</li>`).join("")}
           </ul>
@@ -144,6 +236,23 @@ function renderMatches() {
   });
 
   updateEconomics();
+  renderPacket();
+}
+
+function renderBreakdown(founder, builder) {
+  const breakdown = getReadinessBreakdown(founder, builder);
+  return `
+    <div class="breakdown" aria-label="Match score breakdown">
+      ${Object.entries(breakdown)
+        .map(([label, value]) => `
+          <span>
+            <strong>${value}</strong>
+            ${label}
+          </span>
+        `)
+        .join("")}
+    </div>
+  `;
 }
 
 function updateEconomics() {
@@ -160,6 +269,7 @@ function updateEconomics() {
 
   $("#trial-fee").textContent = money(economics.stipend);
   $("#platform-fee").textContent = money(economics.platformFee);
+  renderPacket();
   return economics;
 }
 
@@ -199,6 +309,7 @@ function buildTrialBrief() {
       <dd>${currentTrial.evidence}</dd>
     </dl>
   `;
+  renderPacket();
 }
 
 function generateProofRecord() {
@@ -207,34 +318,120 @@ function generateProofRecord() {
   }
 
   const proofData = new FormData($("#proof-form"));
+  currentProofRecord = {
+    builder: currentTrial.builder.name,
+    founder: currentTrial.founder.name,
+    role: `${currentTrial.founder.neededSkill} builder`,
+    status: proofData.get("status"),
+    artifacts: proofData.get("artifacts"),
+    feedback: proofData.get("feedback")
+  };
+
   $("#proof-record").innerHTML = `
     <h3>Verified trial record</h3>
     <dl>
       <dt>Builder</dt>
-      <dd>${currentTrial.builder.name}</dd>
+      <dd>${currentProofRecord.builder}</dd>
       <dt>Founder</dt>
-      <dd>${currentTrial.founder.name}</dd>
+      <dd>${currentProofRecord.founder}</dd>
       <dt>Role</dt>
-      <dd>${currentTrial.founder.neededSkill} builder</dd>
+      <dd>${currentProofRecord.role}</dd>
       <dt>Status</dt>
-      <dd>${proofData.get("status")}</dd>
+      <dd>${currentProofRecord.status}</dd>
       <dt>Artifacts</dt>
-      <dd>${proofData.get("artifacts")}</dd>
+      <dd>${currentProofRecord.artifacts}</dd>
       <dt>Feedback</dt>
-      <dd>${proofData.get("feedback")}</dd>
+      <dd>${currentProofRecord.feedback}</dd>
     </dl>
   `;
+  renderPacket();
 }
 
 function resetFounder() {
-  const form = $("#founder-form");
-  Object.entries(sampleFounder).forEach(([key, value]) => {
-    const field = form.elements[key];
-    if (!field) return;
-    if (field.type === "checkbox") field.checked = Boolean(value);
-    else field.value = value;
-  });
+  fillFounderForm(sampleFounder);
   renderMatches();
+  saveState();
+}
+
+function resetData() {
+  localStorage.removeItem(STORAGE_KEY);
+  builders = structuredClone(sampleBuilders);
+  fillFounderForm(sampleFounder);
+  currentTrial = null;
+  currentProofRecord = null;
+  $("#trial-brief").innerHTML = `
+    <h3>Trial brief preview</h3>
+    <p class="muted">Create a match first, then build a trial brief.</p>
+  `;
+  $("#proof-record").innerHTML = `
+    <p class="muted">Generate a proof record after a trial brief exists.</p>
+  `;
+  renderBuilders();
+  renderMatches();
+  setSaveStatus("Sample data loaded");
+}
+
+function addBuilder() {
+  const builder = formToBuilder();
+  if (!builder.name || !builder.skills.length) {
+    setSaveStatus("Add a builder name and at least one skill");
+    return;
+  }
+
+  builders = [builder, ...builders];
+  renderBuilders();
+  renderMatches();
+  saveState();
+}
+
+function buildPacket() {
+  const founder = formToFounder();
+  const selected = selectedMatch
+    ? {
+        builder: selectedMatch.builder,
+        score: selectedMatch.score,
+        reasons: selectedMatch.reasons,
+        breakdown: getReadinessBreakdown(founder, selectedMatch.builder)
+      }
+    : null;
+
+  return {
+    generatedAt: new Date().toISOString(),
+    founder,
+    selectedMatch: selected,
+    topMatches: currentMatches.slice(0, 3).map((match) => ({
+      builder: match.builder.name,
+      score: match.score,
+      reasons: match.reasons
+    })),
+    trial: currentTrial,
+    proofRecord: currentProofRecord
+  };
+}
+
+function renderPacket() {
+  const packet = buildPacket();
+  $("#match-packet").textContent = JSON.stringify(packet, null, 2);
+}
+
+async function copyPacket() {
+  const text = $("#match-packet").textContent;
+  try {
+    await navigator.clipboard.writeText(text);
+    setSaveStatus("Match packet copied");
+  } catch {
+    setSaveStatus("Copy failed; select the packet manually");
+  }
+}
+
+function downloadPacket() {
+  const blob = new Blob([$("#match-packet").textContent], { type: "application/json" });
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement("a");
+  link.href = url;
+  link.download = "founder-builder-match-packet.json";
+  link.click();
+  URL.revokeObjectURL(url);
 }
 
 function showPanel(name) {
@@ -255,11 +452,19 @@ function bindEvents() {
   $("#build-trial").addEventListener("click", buildTrialBrief);
   $("#generate-proof").addEventListener("click", generateProofRecord);
   $("#reset-founder").addEventListener("click", resetFounder);
+  $("#reset-data").addEventListener("click", resetData);
+  $("#add-builder").addEventListener("click", addBuilder);
+  $("#copy-packet").addEventListener("click", copyPacket);
+  $("#download-packet").addEventListener("click", downloadPacket);
 
-  $("#founder-form").addEventListener("input", updateEconomics);
+  $("#founder-form").addEventListener("input", () => {
+    renderMatches();
+    saveState();
+  });
   $("#trial-form").addEventListener("input", updateEconomics);
 }
 
+fillFounderForm(loadState());
 renderBuilders();
 bindEvents();
 renderMatches();

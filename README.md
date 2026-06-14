@@ -82,11 +82,13 @@ http://localhost:4173
 The prototype demonstrates:
 
 - founder intake
-- builder proof profiles
+- editable builder proof profiles
 - visible match scoring
 - fair trial sprint pricing
 - trial brief generation
 - proof-of-work record generation
+- local draft saving
+- JSON match packet export for concierge validation
 
 ## Current Status
 
@@ -108,6 +110,7 @@ This project is intended to be public and contributor-friendly. The early open-s
 
 - [docs/PRODUCT_BRIEF.md](docs/PRODUCT_BRIEF.md): product concept and positioning
 - [docs/MVP_SPEC.md](docs/MVP_SPEC.md): initial app scope
+- [docs/COMPETITIVE_LANDSCAPE.md](docs/COMPETITIVE_LANDSCAPE.md): comparison with job boards, freelance marketplaces, co-founder matching, and OSS workflows
 - [docs/MARKET_RESEARCH_PLAN.md](docs/MARKET_RESEARCH_PLAN.md): validation plan and dead-market checks
 - [docs/VALIDATION_SPRINT.md](docs/VALIDATION_SPRINT.md): 14-day validation sprint plan
 - [docs/INTERVIEW_GUIDE.md](docs/INTERVIEW_GUIDE.md): founder and builder interview scripts

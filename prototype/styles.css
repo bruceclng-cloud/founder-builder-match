@@ -104,6 +104,27 @@ button {
   padding: 10px 14px;
 }
 
+.text-button {
+  background: transparent;
+  border: 0;
+  color: var(--danger);
+  min-height: auto;
+  padding: 0;
+}
+
+.button-row {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: flex-end;
+}
+
+.status-note {
+  color: var(--muted);
+  font-size: 0.88rem;
+}
+
 .shell {
   margin: 0 auto;
   max-width: 1180px;
@@ -297,6 +318,13 @@ a:focus-visible {
   background: #ffffff;
 }
 
+.card-title {
+  align-items: start;
+  display: flex;
+  gap: 10px;
+  justify-content: space-between;
+}
+
 .person-card.is-selected,
 .match-card.is-selected {
   border-color: var(--accent);
@@ -333,6 +361,28 @@ a:focus-visible {
   color: var(--accent-strong);
   font-size: 1.4rem;
   font-weight: 800;
+}
+
+.breakdown {
+  display: grid;
+  gap: 8px;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  margin: 12px 0;
+}
+
+.breakdown span {
+  background: var(--surface-strong);
+  border-radius: var(--radius);
+  color: var(--muted);
+  font-size: 0.75rem;
+  padding: 8px;
+  text-transform: capitalize;
+}
+
+.breakdown strong {
+  color: var(--ink);
+  display: block;
+  font-size: 1rem;
 }
 
 .reason-list {
@@ -384,6 +434,22 @@ a:focus-visible {
   display: block;
 }
 
+.output-panel {
+  margin-top: 18px;
+  padding: 22px;
+}
+
+#match-packet {
+  background: #10201d;
+  border-radius: var(--radius);
+  color: #e8fff8;
+  margin: 0;
+  max-height: 360px;
+  overflow: auto;
+  padding: 16px;
+  white-space: pre-wrap;
+}
+
 @media (max-width: 860px) {
   .intro-panel,
   .trial-layout {
@@ -393,6 +459,10 @@ a:focus-visible {
   .builder-grid {
     grid-template-columns: 1fr;
   }
+
+  .breakdown {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
 }
 
 @media (max-width: 640px) {
@@ -400,6 +470,14 @@ a:focus-visible {
   .section-heading {
     align-items: stretch;
     flex-direction: column;
+  }
+
+  .button-row {
+    justify-content: stretch;
+  }
+
+  .button-row button {
+    flex: 1;
   }
 
   .metric-row,

@@ -119,12 +119,52 @@
 
         <article class="view" id="panel-builders">
           <div class="section-heading">
-            <div>
-              <p class="eyebrow">Step 2</p>
-              <h2>Builder profiles and proof</h2>
-            </div>
-            <button class="primary-button" id="score-builders" type="button">Generate matches</button>
+          <div>
+            <p class="eyebrow">Step 2</p>
+            <h2>Builder profiles and proof</h2>
           </div>
+            <div class="button-row">
+              <button class="secondary-button" id="reset-data" type="button">Reset data</button>
+              <button class="primary-button" id="score-builders" type="button">Generate matches</button>
+            </div>
+          </div>
+
+          <form class="form-grid builder-form" id="builder-form">
+            <label>
+              Builder name
+              <input name="name" value="Jordan Lee">
+            </label>
+            <label>
+              Timezone
+              <input name="timezone" value="GMT+8">
+            </label>
+            <label>
+              Status
+              <input name="status" value="Recently laid off">
+            </label>
+            <label>
+              Minimum 7-day rate
+              <input name="minimumRate" type="number" min="0" value="1000">
+            </label>
+            <label>
+              Availability
+              <input name="availability" value="Full week">
+            </label>
+            <label>
+              Skills
+              <input name="skills" value="fullstack, backend, ai">
+            </label>
+            <label class="span-2">
+              Proof links or notes
+              <textarea name="proofLinks">GitHub: production API work
+Portfolio: SaaS MVP builds
+LinkedIn: 5 years software engineering</textarea>
+            </label>
+            <div class="span-2 button-row">
+              <button class="secondary-button" id="add-builder" type="button">Add builder profile</button>
+              <span class="status-note" id="save-status">Sample data loaded</span>
+            </div>
+          </form>
 
           <div class="builder-grid" id="builder-grid"></div>
         </article>
@@ -135,7 +175,10 @@
               <p class="eyebrow">Step 3</p>
               <h2>Recommended matches</h2>
             </div>
-            <button class="primary-button" id="refresh-matches" type="button">Refresh scores</button>
+            <div class="button-row">
+              <button class="secondary-button" id="copy-packet" type="button">Copy match packet</button>
+              <button class="primary-button" id="refresh-matches" type="button">Refresh scores</button>
+            </div>
           </div>
           <div class="empty-state" id="empty-matches">
             Generate matches to see ranked builders and reasons.
@@ -217,6 +260,17 @@
             <p class="muted">Generate a proof record after a trial brief exists.</p>
           </section>
         </article>
+      </section>
+
+      <section class="panel output-panel" aria-labelledby="packet-title">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">Reusable output</p>
+            <h2 id="packet-title">Match packet</h2>
+          </div>
+          <button class="secondary-button" id="download-packet" type="button">Download JSON</button>
+        </div>
+        <pre id="match-packet">{}</pre>
       </section>
     </main>
 

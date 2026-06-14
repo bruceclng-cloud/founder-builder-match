@@ -3,6 +3,7 @@ import assert from "node:assert/strict";
 import {
   calculateTrialEconomics,
   founderSeriousness,
+  getReadinessBreakdown,
   recommendMatches,
   skillMatches
 } from "../prototype/matching.js";
@@ -77,4 +78,33 @@ test("trial economics only proceeds when founder budget meets builder minimum an
   assert.equal(allowed.canProceed, true);
   assert.equal(allowed.platformFee, 120);
   assert.equal(allowed.builderReceives, 1080);
+});
+
+test("readiness breakdown exposes weighted score inputs", () => {
+  const breakdown = getReadinessBreakdown(
+    {
+      neededSkill: "ai",
+      budget: 1500,
+      timezone: "GMT+8",
+      hasBudget: true,
+      clearScope: true,
+      hasTimeline: true,
+      canGiveFeedback: true,
+      marketEvidence: "Paying customers"
+    },
+    {
+      timezone: "GMT+8",
+      skills: ["backend", "ai"],
+      minimumRate: 1200,
+      proofLinks: ["GitHub", "Portfolio", "LinkedIn"]
+    }
+  );
+
+  assert.deepEqual(breakdown, {
+    skill: 100,
+    price: 100,
+    proof: 100,
+    founder: 100,
+    timezone: 100
+  });
 });
