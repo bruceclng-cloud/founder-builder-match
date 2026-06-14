@@ -12,6 +12,8 @@ Goal: prove the core workflow in public before building payments, escrow, or leg
 - Trial sprint brief preview
 - Builder proof-of-work record preview
 - Local draft persistence
+- Demo scenario presets
+- Shareable text summaries
 - JSON match packet export
 
 Status: complete

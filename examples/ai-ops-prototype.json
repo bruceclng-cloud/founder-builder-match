@@ -1,0 +1,115 @@
+{
+  "generatedAt": "2026-06-14T00:00:00.000Z",
+  "scenario": {
+    "id": "ai-ops-prototype",
+    "name": "AI operations proof-of-concept",
+    "description": "A founder with customer conversations needs an AI automation builder."
+  },
+  "founder": {
+    "name": "Noah Patel",
+    "timezone": "GMT+0",
+    "summary": "An AI assistant that turns messy client emails into task lists for boutique agencies.",
+    "neededSkill": "ai",
+    "budget": 1800,
+    "stage": "Prototype exists",
+    "marketEvidence": "Waitlist",
+    "outcome": "Build a proof-of-concept that classifies 30 sample emails, extracts tasks, and exports a reviewable task board.",
+    "hasBudget": true,
+    "clearScope": true,
+    "hasTimeline": true,
+    "canGiveFeedback": true
+  },
+  "selectedMatch": {
+    "builder": {
+      "id": "amina-ai",
+      "name": "Amina Patel",
+      "timezone": "GMT+0",
+      "status": "Recently laid off",
+      "skills": [
+        "ai",
+        "backend",
+        "fullstack"
+      ],
+      "minimumRate": 1500,
+      "availability": "Full week",
+      "proofLinks": [
+        "GitHub: LLM workflow tooling",
+        "Case study: support automation",
+        "LinkedIn: ML platform engineer"
+      ]
+    },
+    "score": 100,
+    "reasons": [
+      "Skill fit: Amina Patel directly covers ai.",
+      "Budget overlaps with builder minimum.",
+      "Builder has multiple proof links.",
+      "Founder seriousness checks are strong.",
+      "Timezone match supports real-time collaboration."
+    ],
+    "breakdown": {
+      "skill": 100,
+      "price": 100,
+      "proof": 100,
+      "founder": 100,
+      "timezone": 100
+    }
+  },
+  "topMatches": [
+    {
+      "builder": "Amina Patel",
+      "score": 100,
+      "reasons": [
+        "Skill fit: Amina Patel directly covers ai.",
+        "Budget overlaps with builder minimum.",
+        "Builder has multiple proof links.",
+        "Founder seriousness checks are strong.",
+        "Timezone match supports real-time collaboration."
+      ]
+    },
+    {
+      "builder": "Marco Silva",
+      "score": 83,
+      "reasons": [
+        "Adjacent skill fit: Marco Silva partially covers ai.",
+        "Budget overlaps with builder minimum.",
+        "Builder has multiple proof links.",
+        "Founder seriousness checks are strong.",
+        "Timezone is workable but not exact."
+      ]
+    },
+    {
+      "builder": "Nina Roberts",
+      "score": 65,
+      "reasons": [
+        "Skill gap: Nina Roberts may not directly cover ai.",
+        "Budget overlaps with builder minimum.",
+        "Builder has multiple proof links.",
+        "Founder seriousness checks are strong.",
+        "Timezone is workable but not exact."
+      ]
+    }
+  ],
+  "trial": {
+    "trialType": "ai",
+    "acceptance": "Prototype processes the sample email set, produces task JSON, and includes notes on accuracy limits and next model choices.",
+    "evidence": "Repository link, notebook or service demo, test email set, Loom walkthrough, accuracy notes.",
+    "economics": {
+      "range": {
+        "min": 1200,
+        "max": 2600
+      },
+      "stipend": 1800,
+      "platformFee": 180,
+      "builderReceives": 1620,
+      "canProceed": true
+    }
+  },
+  "proofRecord": {
+    "builder": "Amina Patel",
+    "founder": "Noah Patel",
+    "role": "ai builder",
+    "status": "Milestones completed",
+    "artifacts": "Repository link, model notes, sample outputs, Loom walkthrough.",
+    "feedback": "Useful POC with clear limitations and practical next steps."
+  }
+}

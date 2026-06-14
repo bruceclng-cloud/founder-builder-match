@@ -1,0 +1,115 @@
+{
+  "generatedAt": "2026-06-14T00:00:00.000Z",
+  "scenario": {
+    "id": "fullstack-tutor-mvp",
+    "name": "Full-stack MVP for tutor booking",
+    "description": "A semi-technical founder needs a builder to ship a small booking flow."
+  },
+  "founder": {
+    "name": "Maya Chen",
+    "timezone": "GMT+8",
+    "summary": "A lightweight scheduling and payment tool for independent tutors in Hong Kong.",
+    "neededSkill": "fullstack",
+    "budget": 1200,
+    "stage": "Validated problem",
+    "marketEvidence": "Customer conversations",
+    "outcome": "Ship a working booking flow with tutor availability, student request form, and admin review screen.",
+    "hasBudget": true,
+    "clearScope": true,
+    "hasTimeline": true,
+    "canGiveFeedback": true
+  },
+  "selectedMatch": {
+    "builder": {
+      "id": "leo",
+      "name": "Leo Wong",
+      "timezone": "GMT+8",
+      "status": "Underemployed",
+      "skills": [
+        "frontend",
+        "backend",
+        "fullstack"
+      ],
+      "minimumRate": 900,
+      "availability": "20 hrs/week",
+      "proofLinks": [
+        "GitHub: booking widgets",
+        "Portfolio: SaaS dashboards",
+        "LinkedIn: 4 years full-stack"
+      ]
+    },
+    "score": 100,
+    "reasons": [
+      "Skill fit: Leo Wong directly covers fullstack.",
+      "Budget overlaps with builder minimum.",
+      "Builder has multiple proof links.",
+      "Founder seriousness checks are strong.",
+      "Timezone match supports real-time collaboration."
+    ],
+    "breakdown": {
+      "skill": 100,
+      "price": 100,
+      "proof": 100,
+      "founder": 100,
+      "timezone": 100
+    }
+  },
+  "topMatches": [
+    {
+      "builder": "Leo Wong",
+      "score": 100,
+      "reasons": [
+        "Skill fit: Leo Wong directly covers fullstack.",
+        "Budget overlaps with builder minimum.",
+        "Builder has multiple proof links.",
+        "Founder seriousness checks are strong.",
+        "Timezone match supports real-time collaboration."
+      ]
+    },
+    {
+      "builder": "Sam Rivera",
+      "score": 92,
+      "reasons": [
+        "Adjacent skill fit: Sam Rivera partially covers fullstack.",
+        "Budget overlaps with builder minimum.",
+        "Builder has multiple proof links.",
+        "Founder seriousness checks are strong.",
+        "Timezone match supports real-time collaboration."
+      ]
+    },
+    {
+      "builder": "Amina Patel",
+      "score": 71,
+      "reasons": [
+        "Adjacent skill fit: Amina Patel partially covers fullstack.",
+        "Budget is below builder minimum or needs adjustment.",
+        "Builder has multiple proof links.",
+        "Founder seriousness checks are strong.",
+        "Timezone is workable but not exact."
+      ]
+    }
+  ],
+  "trial": {
+    "trialType": "feature",
+    "acceptance": "Demo booking flow works with sample data. Screens are responsive. Handoff notes explain next technical steps.",
+    "evidence": "GitHub branch, deployed demo link, Loom walkthrough, screenshots of mobile and desktop.",
+    "economics": {
+      "range": {
+        "min": 900,
+        "max": 1600
+      },
+      "stipend": 1200,
+      "platformFee": 120,
+      "builderReceives": 1080,
+      "canProceed": true
+    }
+  },
+  "proofRecord": {
+    "builder": "Leo Wong",
+    "founder": "Maya Chen",
+    "role": "fullstack builder",
+    "status": "Milestones completed",
+    "artifacts": "Demo URL, GitHub branch, Loom walkthrough, implementation notes.",
+    "feedback": "Strong execution and clear communication."
+  }
+}

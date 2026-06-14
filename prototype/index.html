@@ -38,6 +38,10 @@
             <span>platform fee</span>
           </div>
         </div>
+        <label class="scenario-picker">
+          Demo scenario
+          <select id="scenario-select"></select>
+        </label>
       </section>
 
       <nav class="tabs" aria-label="Prototype workflow">
@@ -119,10 +123,10 @@
 
         <article class="view" id="panel-builders">
           <div class="section-heading">
-          <div>
-            <p class="eyebrow">Step 2</p>
-            <h2>Builder profiles and proof</h2>
-          </div>
+            <div>
+              <p class="eyebrow">Step 2</p>
+              <h2>Builder profiles and proof</h2>
+            </div>
             <div class="button-row">
               <button class="secondary-button" id="reset-data" type="button">Reset data</button>
               <button class="primary-button" id="score-builders" type="button">Generate matches</button>
@@ -176,7 +180,6 @@ LinkedIn: 5 years software engineering</textarea>
               <h2>Recommended matches</h2>
             </div>
             <div class="button-row">
-              <button class="secondary-button" id="copy-packet" type="button">Copy match packet</button>
               <button class="primary-button" id="refresh-matches" type="button">Refresh scores</button>
             </div>
           </div>
@@ -268,9 +271,27 @@ LinkedIn: 5 years software engineering</textarea>
             <p class="eyebrow">Reusable output</p>
             <h2 id="packet-title">Match packet</h2>
           </div>
-          <button class="secondary-button" id="download-packet" type="button">Download JSON</button>
+          <div class="button-row">
+            <button class="secondary-button" id="download-packet" type="button">Download JSON</button>
+            <button class="secondary-button" id="download-summary" type="button">Download summary</button>
+          </div>
         </div>
+        <div class="output-grid">
+          <article>
+            <div class="mini-heading">
+              <h3>Share summary</h3>
+              <button class="text-button" id="copy-summary" type="button">Copy</button>
+            </div>
+            <pre id="share-summary">No match generated yet.</pre>
+          </article>
+          <article>
+            <div class="mini-heading">
+              <h3>JSON packet</h3>
+              <button class="text-button" id="copy-packet" type="button">Copy</button>
+            </div>
         <pre id="match-packet">{}</pre>
+          </article>
+        </div>
       </section>
     </main>
 

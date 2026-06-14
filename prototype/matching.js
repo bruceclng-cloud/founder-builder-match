@@ -26,10 +26,16 @@ function normalizeSkills(skills) {
 }
 
 function skillMatches(neededSkill, builderSkills) {
+  return getSkillScore(neededSkill, builderSkills) > 20;
+}
+
+function getSkillScore(neededSkill, builderSkills) {
   const normalizedNeed = String(neededSkill || "").toLowerCase();
   const accepted = SKILL_ALIASES[normalizedNeed] || [normalizedNeed];
   const normalizedBuilderSkills = normalizeSkills(builderSkills);
-  return normalizedBuilderSkills.some((skill) => accepted.includes(skill));
+  if (normalizedBuilderSkills.includes(normalizedNeed)) return 100;
+  if (normalizedBuilderSkills.some((skill) => accepted.includes(skill))) return 75;
+  return 20;
 }
 
 function founderSeriousness(founder) {
@@ -67,13 +73,14 @@ function timezoneCompatibility(founderTimezone, builderTimezone) {
 
 function scoreMatch(founder, builder) {
   const reasons = [];
-  const skillScore = skillMatches(founder.neededSkill, builder.skills) ? 100 : 20;
+  const skillScore = getSkillScore(founder.neededSkill, builder.skills);
   const priceScore = priceCompatibility(founder.budget, builder.minimumRate);
   const proofScore = proofCompleteness(builder);
   const seriousnessScore = founderSeriousness(founder);
   const timezoneScore = timezoneCompatibility(founder.timezone, builder.timezone);
 
-  if (skillScore === 100) reasons.push(`Skill fit: ${builder.name} covers ${founder.neededSkill}.`);
+  if (skillScore === 100) reasons.push(`Skill fit: ${builder.name} directly covers ${founder.neededSkill}.`);
+  else if (skillScore > 20) reasons.push(`Adjacent skill fit: ${builder.name} partially covers ${founder.neededSkill}.`);
   else reasons.push(`Skill gap: ${builder.name} may not directly cover ${founder.neededSkill}.`);
 
   if (priceScore === 100) reasons.push("Budget overlaps with builder minimum.");
@@ -101,7 +108,7 @@ function scoreMatch(founder, builder) {
 
 function getReadinessBreakdown(founder, builder) {
   return {
-    skill: skillMatches(founder.neededSkill, builder.skills) ? 100 : 20,
+    skill: getSkillScore(founder.neededSkill, builder.skills),
     price: priceCompatibility(founder.budget, builder.minimumRate),
     proof: proofCompleteness(builder),
     founder: founderSeriousness(founder),
@@ -141,6 +148,7 @@ export {
   PRICE_RANGES,
   calculateTrialEconomics,
   founderSeriousness,
+  getSkillScore,
   getReadinessBreakdown,
   proofCompleteness,
   recommendMatches,

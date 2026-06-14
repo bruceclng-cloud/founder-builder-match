@@ -160,6 +160,10 @@ button {
   grid-template-columns: repeat(3, 1fr);
 }
 
+.scenario-picker {
+  grid-column: 1 / -1;
+}
+
 .metric {
   background: var(--surface-strong);
   border: 1px solid var(--line);
@@ -439,7 +443,8 @@ a:focus-visible {
   padding: 22px;
 }
 
-#match-packet {
+#match-packet,
+#share-summary {
   background: #10201d;
   border-radius: var(--radius);
   color: #e8fff8;
@@ -450,9 +455,27 @@ a:focus-visible {
   white-space: pre-wrap;
 }
 
+.output-grid {
+  display: grid;
+  gap: 16px;
+  grid-template-columns: 1fr 1fr;
+}
+
+.mini-heading {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.mini-heading h3 {
+  margin-bottom: 0;
+}
+
 @media (max-width: 860px) {
   .intro-panel,
-  .trial-layout {
+  .trial-layout,
+  .output-grid {
     grid-template-columns: 1fr;
   }
 

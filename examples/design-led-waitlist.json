@@ -1,0 +1,114 @@
+{
+  "generatedAt": "2026-06-14T00:00:00.000Z",
+  "scenario": {
+    "id": "design-led-waitlist",
+    "name": "Design-led landing page and waitlist",
+    "description": "An idea-stage founder needs a credible design/frontend trial, not a full app build."
+  },
+  "founder": {
+    "name": "Iris Morgan",
+    "timezone": "GMT-5",
+    "summary": "A local marketplace for parents to find vetted after-school activity providers.",
+    "neededSkill": "frontend",
+    "budget": 750,
+    "stage": "Idea only",
+    "marketEvidence": "No evidence yet",
+    "outcome": "Create a landing page, waitlist form, and three value-proposition variants for parent interviews.",
+    "hasBudget": true,
+    "clearScope": true,
+    "hasTimeline": true,
+    "canGiveFeedback": true
+  },
+  "selectedMatch": {
+    "builder": {
+      "id": "sam-design",
+      "name": "Sam Rivera",
+      "timezone": "GMT-5",
+      "status": "Freelance",
+      "skills": [
+        "design",
+        "frontend"
+      ],
+      "minimumRate": 700,
+      "availability": "15 hrs/week",
+      "proofLinks": [
+        "Portfolio: mobile prototypes",
+        "Figma community",
+        "Resume: product designer"
+      ]
+    },
+    "score": 97,
+    "reasons": [
+      "Skill fit: Sam Rivera directly covers frontend.",
+      "Budget overlaps with builder minimum.",
+      "Builder has multiple proof links.",
+      "Founder seriousness checks are strong.",
+      "Timezone match supports real-time collaboration."
+    ],
+    "breakdown": {
+      "skill": 100,
+      "price": 100,
+      "proof": 100,
+      "founder": 83,
+      "timezone": 100
+    }
+  },
+  "topMatches": [
+    {
+      "builder": "Sam Rivera",
+      "score": 97,
+      "reasons": [
+        "Skill fit: Sam Rivera directly covers frontend.",
+        "Budget overlaps with builder minimum.",
+        "Builder has multiple proof links.",
+        "Founder seriousness checks are strong.",
+        "Timezone match supports real-time collaboration."
+      ]
+    },
+    {
+      "builder": "Leo Wong",
+      "score": 83,
+      "reasons": [
+        "Skill fit: Leo Wong directly covers frontend.",
+        "Budget is below builder minimum or needs adjustment.",
+        "Builder has multiple proof links.",
+        "Founder seriousness checks are strong.",
+        "Timezone is workable but not exact."
+      ]
+    },
+    {
+      "builder": "Rachel Kim",
+      "score": 80,
+      "reasons": [
+        "Adjacent skill fit: Rachel Kim partially covers frontend.",
+        "Budget overlaps with builder minimum.",
+        "Builder has multiple proof links.",
+        "Founder seriousness checks are strong.",
+        "Timezone is workable but not exact."
+      ]
+    }
+  ],
+  "trial": {
+    "trialType": "prototype",
+    "acceptance": "Landing page has three message variants, a working waitlist form mock, mobile layout, and a list of assumptions to test.",
+    "evidence": "Deployed page, Figma file, screenshots, notes on messaging assumptions.",
+    "economics": {
+      "range": {
+        "min": 500,
+        "max": 900
+      },
+      "stipend": 750,
+      "platformFee": 75,
+      "builderReceives": 675,
+      "canProceed": true
+    }
+  },
+  "proofRecord": {
+    "builder": "Sam Rivera",
+    "founder": "Iris Morgan",
+    "role": "frontend builder",
+    "status": "Partial completion",
+    "artifacts": "Deployed page, Figma file, messaging notes.",
+    "feedback": "Strong design direction; market evidence still needs founder interviews."
+  }
+}

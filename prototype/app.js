@@ -3,56 +3,11 @@ import {
   getReadinessBreakdown,
   recommendMatches
 } from "./matching.js";
+import { getScenario, scenarios } from "./scenarios.js";
 
 const STORAGE_KEY = "founder-builder-match-prototype";
 
-const sampleFounder = {
-  name: "Maya Chen",
-  timezone: "GMT+8",
-  summary: "A lightweight scheduling and payment tool for independent tutors in Hong Kong.",
-  neededSkill: "fullstack",
-  budget: 1200,
-  stage: "Validated problem",
-  marketEvidence: "Customer conversations",
-  outcome: "Ship a working booking flow with tutor availability, student request form, and admin review screen.",
-  hasBudget: true,
-  clearScope: true,
-  hasTimeline: true,
-  canGiveFeedback: true
-};
-
-const sampleBuilders = [
-  {
-    id: "leo",
-    name: "Leo Wong",
-    timezone: "GMT+8",
-    status: "Underemployed",
-    skills: ["frontend", "backend", "fullstack"],
-    minimumRate: 900,
-    availability: "20 hrs/week",
-    proofLinks: ["GitHub: booking widgets", "Portfolio: SaaS dashboards", "LinkedIn: 4 years full-stack"]
-  },
-  {
-    id: "amina",
-    name: "Amina Patel",
-    timezone: "GMT+5:30",
-    status: "Recently laid off",
-    skills: ["ai", "backend"],
-    minimumRate: 1400,
-    availability: "Full week",
-    proofLinks: ["GitHub: LLM automation", "Case study: support bot"]
-  },
-  {
-    id: "sam",
-    name: "Sam Rivera",
-    timezone: "GMT+8",
-    status: "Freelance",
-    skills: ["design", "frontend"],
-    minimumRate: 700,
-    availability: "15 hrs/week",
-    proofLinks: ["Portfolio: mobile prototypes", "Figma community", "Resume: product designer"]
-  }
-];
+const defaultScenario = getScenario("fullstack-tutor-mvp");
 
 let builders = [];
 let currentMatches = [];
@@ -93,19 +48,19 @@ function saveState() {
 function loadState() {
   const stored = localStorage.getItem(STORAGE_KEY);
   if (!stored) {
-    builders = structuredClone(sampleBuilders);
-    return sampleFounder;
+    builders = structuredClone(defaultScenario.builders);
+    return defaultScenario.founder;
   }
 
   try {
     const parsed = JSON.parse(stored);
     builders = Array.isArray(parsed.builders) && parsed.builders.length
       ? parsed.builders
-      : structuredClone(sampleBuilders);
-    return parsed.founder || sampleFounder;
+      : structuredClone(defaultScenario.builders);
+    return parsed.founder || defaultScenario.founder;
   } catch {
-    builders = structuredClone(sampleBuilders);
-    return sampleFounder;
+    builders = structuredClone(defaultScenario.builders);
+    return defaultScenario.founder;
   }
 }
 
@@ -140,6 +95,22 @@ function fillFounderForm(founder) {
     if (!field) return;
     if (field.type === "checkbox") field.checked = Boolean(value);
     else field.value = value;
+  });
+}
+
+function fillTrialForm(trial) {
+  const form = $("#trial-form");
+  Object.entries(trial).forEach(([key, value]) => {
+    const field = form.elements[key];
+    if (field) field.value = value;
+  });
+}
+
+function fillProofForm(proof) {
+  const form = $("#proof-form");
+  Object.entries(proof).forEach(([key, value]) => {
+    const field = form.elements[key];
+    if (field) field.value = value;
   });
 }
 
@@ -348,15 +319,23 @@ function generateProofRecord() {
 }
 
 function resetFounder() {
-  fillFounderForm(sampleFounder);
+  fillFounderForm(defaultScenario.founder);
   renderMatches();
   saveState();
 }
 
 function resetData() {
   localStorage.removeItem(STORAGE_KEY);
-  builders = structuredClone(sampleBuilders);
-  fillFounderForm(sampleFounder);
+  applyScenario(defaultScenario.id);
+}
+
+function applyScenario(id) {
+  const scenario = getScenario(id);
+  $("#scenario-select").value = scenario.id;
+  builders = structuredClone(scenario.builders);
+  fillFounderForm(scenario.founder);
+  fillTrialForm(scenario.trial);
+  fillProofForm(scenario.proof);
   currentTrial = null;
   currentProofRecord = null;
   $("#trial-brief").innerHTML = `
@@ -368,7 +347,8 @@ function resetData() {
   `;
   renderBuilders();
   renderMatches();
-  setSaveStatus("Sample data loaded");
+  saveState();
+  setSaveStatus(`Loaded: ${scenario.name}`);
 }
 
 function addBuilder() {
@@ -409,9 +389,60 @@ function buildPacket() {
   };
 }
 
+function buildShareSummary() {
+  const founder = formToFounder();
+  const topMatch = selectedMatch;
+  const trialData = new FormData($("#trial-form"));
+  const builderMinimum = topMatch
+    ? topMatch.builder.minimumRate
+    : Number(trialData.get("builderMinimum"));
+  const economics = calculateTrialEconomics({
+    trialType: trialData.get("trialType"),
+    founderBudget: founder.budget,
+    builderMinimum
+  });
+  const topThree = currentMatches
+    .slice(0, 3)
+    .map((match, index) => `${index + 1}. ${match.builder.name} - score ${match.score}`)
+    .join("\n");
+
+  if (!topMatch) {
+    return "No match generated yet.";
+  }
+
+  return [
+    `Founder Builder Match summary`,
+    ``,
+    `Founder: ${founder.name}`,
+    `Need: ${founder.neededSkill}`,
+    `Project: ${founder.summary}`,
+    `7-day outcome: ${founder.outcome}`,
+    `Budget: ${money(founder.budget)}`,
+    ``,
+    `Recommended builder: ${topMatch.builder.name}`,
+    `Match score: ${topMatch.score}`,
+    `Builder status: ${topMatch.builder.status}`,
+    `Builder minimum: ${money(topMatch.builder.minimumRate)}`,
+    `Builder proof: ${topMatch.builder.proofLinks.join("; ")}`,
+    ``,
+    `Why this match:`,
+    ...topMatch.reasons.map((reason) => `- ${reason}`),
+    ``,
+    `Trial economics:`,
+    `- Suggested stipend: ${money(economics.stipend)}`,
+    `- Builder receives: ${money(economics.builderReceives)}`,
+    `- Platform fee: ${money(economics.platformFee)}`,
+    `- Can proceed: ${economics.canProceed ? "yes" : "needs budget/scope adjustment"}`,
+    ``,
+    `Top matches:`,
+    topThree
+  ].join("\n");
+}
+
 function renderPacket() {
   const packet = buildPacket();
   $("#match-packet").textContent = JSON.stringify(packet, null, 2);
+  $("#share-summary").textContent = buildShareSummary();
 }
 
 async function copyPacket() {
@@ -424,12 +455,32 @@ async function copyPacket() {
   }
 }
 
+async function copySummary() {
+  const text = $("#share-summary").textContent;
+  try {
+    await navigator.clipboard.writeText(text);
+    setSaveStatus("Share summary copied");
+  } catch {
+    setSaveStatus("Copy failed; select the summary manually");
+  }
+}
+
 function downloadPacket() {
   const blob = new Blob([$("#match-packet").textContent], { type: "application/json" });
   const url = URL.createObjectURL(blob);
   const link = document.createElement("a");
   link.href = url;
   link.download = "founder-builder-match-packet.json";
+  link.click();
+  URL.revokeObjectURL(url);
+}
+
+function downloadSummary() {
+  const blob = new Blob([$("#share-summary").textContent], { type: "text/plain" });
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement("a");
+  link.href = url;
+  link.download = "founder-builder-match-summary.txt";
   link.click();
   URL.revokeObjectURL(url);
 }
@@ -456,6 +507,12 @@ function bindEvents() {
   $("#add-builder").addEventListener("click", addBuilder);
   $("#copy-packet").addEventListener("click", copyPacket);
   $("#download-packet").addEventListener("click", downloadPacket);
+  $("#copy-summary").addEventListener("click", copySummary);
+  $("#download-summary").addEventListener("click", downloadSummary);
+  $("#scenario-select").addEventListener("change", (event) => {
+    applyScenario(event.target.value);
+    showPanel("matches");
+  });
 
   $("#founder-form").addEventListener("input", () => {
     renderMatches();
@@ -464,7 +521,12 @@ function bindEvents() {
   $("#trial-form").addEventListener("input", updateEconomics);
 }
 
+$("#scenario-select").innerHTML = scenarios
+  .map((scenario) => `<option value="${scenario.id}">${scenario.name}</option>`)
+  .join("");
 fillFounderForm(loadState());
+fillTrialForm(defaultScenario.trial);
+fillProofForm(defaultScenario.proof);
 renderBuilders();
 bindEvents();
 renderMatches();

@@ -88,7 +88,15 @@ The prototype demonstrates:
 - trial brief generation
 - proof-of-work record generation
 - local draft saving
+- demo scenario presets
+- shareable text summaries
 - JSON match packet export for concierge validation
+
+Example outputs:
+
+- [Full-stack MVP for tutor booking](examples/fullstack-tutor-mvp.md)
+- [AI operations proof-of-concept](examples/ai-ops-prototype.md)
+- [Design-led landing page and waitlist](examples/design-led-waitlist.md)
 
 ## Current Status
 
@@ -115,6 +123,7 @@ This project is intended to be public and contributor-friendly. The early open-s
 - [docs/VALIDATION_SPRINT.md](docs/VALIDATION_SPRINT.md): 14-day validation sprint plan
 - [docs/INTERVIEW_GUIDE.md](docs/INTERVIEW_GUIDE.md): founder and builder interview scripts
 - [docs/CONCIERGE_MATCH_PLAYBOOK.md](docs/CONCIERGE_MATCH_PLAYBOOK.md): manual matching playbook
+- [docs/DEMO_SCRIPT.md](docs/DEMO_SCRIPT.md): 5-minute script for showing the prototype
 - [docs/CODEX_FOR_OSS_APPLICATION_NOTES.md](docs/CODEX_FOR_OSS_APPLICATION_NOTES.md): notes for future Codex for Open Source readiness
 - [ROADMAP.md](ROADMAP.md): public project roadmap
 - [SECURITY.md](SECURITY.md): security policy and sensitive workflow notes

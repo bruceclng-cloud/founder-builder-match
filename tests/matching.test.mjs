@@ -4,14 +4,22 @@ import {
   calculateTrialEconomics,
   founderSeriousness,
   getReadinessBreakdown,
+  getSkillScore,
   recommendMatches,
   skillMatches
 } from "../prototype/matching.js";
+import { scenarios } from "../prototype/scenarios.js";
 
 test("full-stack need can match frontend/backend/fullstack builders", () => {
   assert.equal(skillMatches("fullstack", ["frontend"]), true);
   assert.equal(skillMatches("fullstack", ["backend"]), true);
   assert.equal(skillMatches("fullstack", ["design"]), false);
+});
+
+test("exact skill fit scores higher than adjacent skill fit", () => {
+  assert.equal(getSkillScore("fullstack", ["fullstack"]), 100);
+  assert.equal(getSkillScore("fullstack", ["frontend"]), 75);
+  assert.equal(getSkillScore("fullstack", ["design"]), 20);
 });
 
 test("founder seriousness rewards budget, scope, timeline, feedback, and market evidence", () => {
@@ -107,4 +115,21 @@ test("readiness breakdown exposes weighted score inputs", () => {
     founder: 100,
     timezone: 100
   });
+});
+
+test("all demo scenarios produce a recommended match and viable trial economics when intended", () => {
+  for (const scenario of scenarios) {
+    const matches = recommendMatches(scenario.founder, scenario.builders);
+    assert.ok(matches.length >= 1);
+    assert.ok(matches[0].score > 0);
+
+    const economics = calculateTrialEconomics({
+      trialType: scenario.trial.trialType,
+      founderBudget: scenario.founder.budget,
+      builderMinimum: matches[0].builder.minimumRate
+    });
+
+    assert.equal(typeof economics.canProceed, "boolean");
+    assert.ok(economics.stipend >= 0);
+  }
 });

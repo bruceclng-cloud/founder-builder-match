@@ -180,9 +180,11 @@ The current static prototype supports:
 - editable builder profile creation
 - local browser storage for prototype data
 - match score breakdowns
+- demo scenario presets
 - trial sprint pricing preview
 - trial brief preview
 - proof-of-work record preview
+- shareable text summaries
 - JSON match packet export
 
 This is still not a production app. It is a validation tool for showing the workflow, collecting feedback, and manually running concierge matches.
