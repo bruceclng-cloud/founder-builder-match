@@ -92,9 +92,18 @@ button {
   padding: 10px 14px;
 }
 
+.secondary-link {
+  background: var(--surface);
+  color: var(--accent-strong);
+}
+
 .repo-link:hover,
 .primary-button:hover {
   background: var(--accent-strong);
+}
+
+.secondary-link:hover {
+  background: var(--accent-soft);
 }
 
 .secondary-button {
@@ -137,6 +146,35 @@ button {
   border: 1px solid var(--line);
   border-radius: var(--radius);
   box-shadow: var(--shadow);
+}
+
+.feedback-panel {
+  align-items: center;
+  display: grid;
+  gap: 18px;
+  grid-template-columns: 1.3fr 1fr;
+  margin-bottom: 18px;
+  padding: 22px;
+}
+
+.feedback-panel p {
+  color: var(--muted);
+  margin-bottom: 0;
+}
+
+.feedback-actions {
+  display: grid;
+  gap: 10px;
+}
+
+.feedback-actions a {
+  background: var(--accent-soft);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  color: var(--accent-strong);
+  font-weight: 800;
+  padding: 12px;
+  text-decoration: none;
 }
 
 .intro-panel {
@@ -474,6 +512,7 @@ a:focus-visible {
 
 @media (max-width: 860px) {
   .intro-panel,
+  .feedback-panel,
   .trial-layout,
   .output-grid {
     grid-template-columns: 1fr;

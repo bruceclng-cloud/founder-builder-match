@@ -121,10 +121,13 @@ This project is intended to be public and contributor-friendly. The early open-s
 - [docs/COMPETITIVE_LANDSCAPE.md](docs/COMPETITIVE_LANDSCAPE.md): comparison with job boards, freelance marketplaces, co-founder matching, and OSS workflows
 - [docs/MARKET_RESEARCH_PLAN.md](docs/MARKET_RESEARCH_PLAN.md): validation plan and dead-market checks
 - [docs/VALIDATION_SPRINT.md](docs/VALIDATION_SPRINT.md): 14-day validation sprint plan
+- [docs/TRACTION_PLAN.md](docs/TRACTION_PLAN.md): 72-hour plan for collecting early feedback
+- [docs/OUTREACH_PACK.md](docs/OUTREACH_PACK.md): messages for founder, builder, and community feedback
 - [docs/INTERVIEW_GUIDE.md](docs/INTERVIEW_GUIDE.md): founder and builder interview scripts
 - [docs/CONCIERGE_MATCH_PLAYBOOK.md](docs/CONCIERGE_MATCH_PLAYBOOK.md): manual matching playbook
 - [docs/DEMO_SCRIPT.md](docs/DEMO_SCRIPT.md): 5-minute script for showing the prototype
 - [docs/CODEX_FOR_OSS_APPLICATION_NOTES.md](docs/CODEX_FOR_OSS_APPLICATION_NOTES.md): notes for future Codex for Open Source readiness
+- [docs/CODEX_FOR_OSS_APPLICATION_DRAFT.md](docs/CODEX_FOR_OSS_APPLICATION_DRAFT.md): draft application framing and evidence checklist
 - [ROADMAP.md](ROADMAP.md): public project roadmap
 - [SECURITY.md](SECURITY.md): security policy and sensitive workflow notes
 - [CONTRIBUTING.md](CONTRIBUTING.md): contributor guidance

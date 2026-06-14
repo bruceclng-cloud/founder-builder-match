@@ -12,10 +12,29 @@
         <p class="eyebrow">Open-source MVP prototype</p>
         <h1>Founder Builder Match</h1>
       </div>
-      <a class="repo-link" href="https://github.com/bruceclng-cloud/founder-builder-match">GitHub</a>
+      <div class="button-row">
+        <a class="repo-link" href="https://github.com/bruceclng-cloud/founder-builder-match">GitHub</a>
+        <a class="repo-link secondary-link" href="https://github.com/bruceclng-cloud/founder-builder-match/issues/new/choose">Give feedback</a>
+      </div>
     </header>
 
     <main class="shell">
+      <section class="panel feedback-panel" aria-labelledby="feedback-title">
+        <div>
+          <p class="eyebrow">Validation needed</p>
+          <h2 id="feedback-title">Help test whether this should exist.</h2>
+          <p>
+            Open one scenario, check the match, then tell us what feels useful, unfair,
+            confusing, or missing from the founder or builder side.
+          </p>
+        </div>
+        <div class="feedback-actions">
+          <a href="https://github.com/bruceclng-cloud/founder-builder-match/issues/new?template=founder_interview.md">Founder feedback</a>
+          <a href="https://github.com/bruceclng-cloud/founder-builder-match/issues/new?template=builder_interview.md">Builder feedback</a>
+          <a href="https://github.com/bruceclng-cloud/founder-builder-match/issues/new?template=research_note.md">General research note</a>
+        </div>
+      </section>
+
       <section class="panel intro-panel" aria-labelledby="prototype-title">
         <div>
           <h2 id="prototype-title">Match serious founders with credible builders.</h2>
@@ -289,7 +308,7 @@ LinkedIn: 5 years software engineering</textarea>
               <h3>JSON packet</h3>
               <button class="text-button" id="copy-packet" type="button">Copy</button>
             </div>
-        <pre id="match-packet">{}</pre>
+            <pre id="match-packet">{}</pre>
           </article>
         </div>
       </section>
